@@ -1,0 +1,18 @@
+export default {
+    'app.system.name': '名称',
+    'app.system.name.placeholder': '请输入名称',
+    'validation.system.name': '请输入名称',
+    'app.system.key': 'Key',
+    'app.system.key.placeholder': '请输入Key',
+    'validation.system.key': '请输入Key',
+    'validation.system.notResourceLogin': '请选择',
+    'app.system.notResourceLogin': '允许无权限登录',
+    'app.system.notResourceLogin.yes': '是',
+    'app.system.notResourceLogin.no': '否',
+    'app.system.notResourceLogin.help': '为否时用户无系统菜单资源权限不能登录系统',
+    'app.system.add.title': '新增系统',
+    'app.system.edit.title': '修改系统',
+    'app.system.info.title': '系统',
+    'app.system.select.placeholder': '选择系统',
+    'app.system.notResource': '无权限登录',
+};

@@ -1,0 +1,18 @@
+export default {
+  'app.menuResource.menuId': '菜单ID',
+  'app.menuResource.menuId.placeholder': '请输入菜单ID',
+  'validation.menuResource.menuId': '请输入菜单ID',
+  'app.menuResource.name': '名称',
+  'app.menuResource.name.placeholder': '请输入名称',
+  'validation.menuResource.name': '请输入名称',
+  'app.menuResource.permission': '权限标识',
+  'app.menuResource.permission.placeholder': '请输入权限标识',
+  'app.menuResource.interfaces': '关联接口',
+  'app.menuResource.interfaces.uri': '请输入接口URI',
+  'validation.menuResource.interfaces.uri': '请输入接口URI',
+  'validation.menuResource.permission': '请输入权限标识',
+  'app.menuResource.add.title': '新增菜单资源',
+  'app.menuResource.edit.title': '修改菜单资源',
+  'app.menuResource.info.title': '菜单资源',
+  'app.menuResource.system.placeholder': '选择系统',
+};

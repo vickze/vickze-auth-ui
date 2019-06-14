@@ -1,0 +1,15 @@
+export default {
+  'app.config.name': '名称',
+  'app.config.name.placeholder': '请输入名称',
+  'validation.config.name': '请输入名称',
+  'app.config.content': '内容',
+  'app.config.content.placeholder': '请输入内容',
+  'validation.config.content': '请输入内容',
+  'app.config.type': '类型',
+  'app.config.type.placeholder': '请输入类型',
+  'validation.config.type': '请输入类型',
+  'app.config.add.title': '新增配置',
+  'app.config.edit.title': '修改配置',
+  'app.config.info.title': '配置',
+  'app.config.type.help': '目前仅支持properties',
+};
