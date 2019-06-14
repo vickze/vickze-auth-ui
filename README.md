@@ -1,6 +1,7 @@
 # vickze-auth-ui
 
-使用ant-design-pro开发
+使用ant-design-pro开发，权限控制前端，后端工程 [https://github.com/vickze/vickze-cloud-admin](https://github.com/vickze/vickze-cloud-admin)
+
 
 ### 准备
 
