@@ -32,7 +32,7 @@ const getUrlRelativePath = (url) => {
 const errorHandler = error => {
   const { response = {}, data = {} } = error;
   const errortext = data.error
-    || (data.msg && formatMessage({ id: data.msg }))
+    || (data.message && formatMessage({ id: data.message }))
     || formatMessage({ id: 'app.response.status.' + response.status })
     || response.statusText;
 
