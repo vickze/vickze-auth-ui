@@ -52,13 +52,13 @@ export default config => {
         lessUrl: 'https://gw.alipayobjects.com/os/lib/less.js/3.8.1/less.min.js',
       },
     ]);
-
-    config.plugin('monaco-editor').use(MonacoWebpackPlugin , [
-      {
-        languages: ['javascript','typescript', 'plaintext', 'java', 'yaml']
-      }
-    ]);
   }
+  
+  config.plugin('monaco-editor').use(MonacoWebpackPlugin , [
+    {
+      languages: ['javascript','typescript', 'plaintext', 'java', 'yaml']
+    }
+  ]);
   // optimize chunks
   config.optimization
     .runtimeChunk(false) // share the same chunks across different modules
