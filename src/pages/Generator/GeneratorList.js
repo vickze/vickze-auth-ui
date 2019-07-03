@@ -124,7 +124,7 @@ class GeneratorList extends PureComponent {
     this.queryList(paginationArg, paramsTemp);
   };
 
-  renderSearchForm() {
+  renderSearchForm = fieldsValue => {
     const {
       form: { getFieldDecorator },
     } = this.props;
@@ -133,7 +133,9 @@ class GeneratorList extends PureComponent {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           <Col md={8} sm={24}>
             <FormItem label={<FormattedMessage id="app.generator.tableName" />}>
-              {getFieldDecorator('tableName')(
+              {getFieldDecorator('tableName', {
+                initialValue: fieldsValue && fieldsValue.tableName,
+              })(
                 <Input placeholder={formatMessage({ id: 'app.generator.tableName.placeholder' })} />
               )}
             </FormItem>
@@ -186,7 +188,7 @@ class GeneratorList extends PureComponent {
       <PageHeaderWrapper title={formatMessage({ id: 'menu.generator.generatorList' })}>
         <Card bordered={false}>
           <div className={styles.tableList}>
-            <div className={styles.tableListForm}>{this.renderSearchForm()}</div>
+            <div className={styles.tableListForm}>{this.renderSearchForm(params.fieldsValue)}</div>
             <div className={styles.tableListOperator}>
               <Button type="primary" onClick={() => this.generator()}>
                 <FormattedMessage id="app.generator.code" />

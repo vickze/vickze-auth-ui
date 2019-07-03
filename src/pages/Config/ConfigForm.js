@@ -30,8 +30,8 @@ const { TextArea } = Input;
 @Form.create()
 class ConfigForm extends PureComponent {
   state = {
-    data: {}
-  }
+    data: {},
+  };
 
   componentDidMount() {
     const {
@@ -45,7 +45,7 @@ class ConfigForm extends PureComponent {
       dispatch({
         type: 'config/fetchById',
         payload: id,
-        callback: (response) => {
+        callback: response => {
           this.setState({
             data: response,
           });
@@ -124,8 +124,8 @@ class ConfigForm extends PureComponent {
           !id ? (
             <FormattedMessage id="app.config.add.title" />
           ) : (
-              <FormattedMessage id="app.config.edit.title" />
-            )
+            <FormattedMessage id="app.config.edit.title" />
+          )
         }
       >
         <Card bordered={false} loading={loading}>
@@ -168,7 +168,7 @@ class ConfigForm extends PureComponent {
                 />
               )}
             </FormItem> */}
-            <FormItem  {...formItemLayout} label={<FormattedMessage id="app.config.content" />}>
+            <FormItem {...formItemLayout} label={<FormattedMessage id="app.config.content" />}>
               {getFieldDecorator('content', {
                 initialValue: data.content,
                 rules: [
@@ -190,14 +190,14 @@ class ConfigForm extends PureComponent {
             <FormItem
               {...formItemLayout}
               label={<FormattedMessage id="app.config.type" />}
-              help={<FormattedMessage id="app.config.type.help" />}
+              //help={<FormattedMessage id="app.config.type.help" />}
             >
               {getFieldDecorator('type', {
-                initialValue: data.type || '0',
+                initialValue: data.type || 0,
               })(
                 <Radio.Group>
-                  <Radio value="0">properties</Radio>
-                  <Radio value="1">yml</Radio>
+                  <Radio value={0}>properties</Radio>
+                  <Radio value={1}>yaml</Radio>
                 </Radio.Group>
               )}
             </FormItem>

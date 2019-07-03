@@ -9,7 +9,7 @@ import MonacoEditor from 'react-monaco-editor';
 
 const { Description } = DescriptionList;
 
-const typeMap = new Map([[0, 'properties'], [1, 'yml']]);
+const typeMap = new Map([[0, 'properties'], [1, 'yaml']]);
 
 @connect(({ config, loading }) => ({
   config,

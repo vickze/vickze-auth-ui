@@ -29,8 +29,8 @@ const { TextArea } = Input;
 @Form.create()
 class TemplateForm extends PureComponent {
   state = {
-    data: {}
-  }
+    data: {},
+  };
 
   componentDidMount() {
     const {
@@ -44,7 +44,7 @@ class TemplateForm extends PureComponent {
       dispatch({
         type: 'template/fetchById',
         payload: id,
-        callback: (response) => {
+        callback: response => {
           this.setState({
             data: response,
           });
@@ -123,8 +123,8 @@ class TemplateForm extends PureComponent {
           !id || !duplicate ? (
             <FormattedMessage id="app.template.add.title" />
           ) : (
-              <FormattedMessage id="app.template.edit.title" />
-            )
+            <FormattedMessage id="app.template.edit.title" />
+          )
         }
       >
         <Card bordered={false} loading={loading}>
@@ -180,7 +180,7 @@ class TemplateForm extends PureComponent {
                 />
               )}
             </FormItem> */}
-            <FormItem  {...formItemLayout} label={<FormattedMessage id="app.template.content" />}>
+            <FormItem {...formItemLayout} label={<FormattedMessage id="app.template.content" />}>
               {getFieldDecorator('content', {
                 initialValue: data.content,
                 rules: [
@@ -202,14 +202,14 @@ class TemplateForm extends PureComponent {
             <FormItem
               {...formItemLayout}
               label={<FormattedMessage id="app.template.type" />}
-              help={<FormattedMessage id="app.template.type.help" />}
+              //help={<FormattedMessage id="app.template.type.help" />}
             >
               {getFieldDecorator('type', {
-                initialValue: data.type || '0',
+                initialValue: data.type || 0,
               })(
                 <Radio.Group>
-                  <Radio value="0">Velocity</Radio>
-                  <Radio value="1">Freemarker</Radio>
+                  <Radio value={0}>Velocity</Radio>
+                  <Radio value={1}>Freemarker</Radio>
                 </Radio.Group>
               )}
             </FormItem>

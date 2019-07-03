@@ -33,7 +33,7 @@ import styles from '@/pages/TableList.less';
 
 const FormItem = Form.Item;
 
-const typeMap = new Map([[0, 'properties'], [1, 'yml']]);
+const typeMap = new Map([[0, 'properties'], [1, 'yaml']]);
 const typeFilter = getFilterByMap(typeMap);
 
 /* eslint react/no-multi-comp:0 */
@@ -157,7 +157,6 @@ class ConfigList extends PureComponent {
     });
   };
 
-
   handleSelectRows = (selectedRowKeys, selectedRows) => {
     this.setState({
       selectedRowKeys: selectedRowKeys,
@@ -198,11 +197,9 @@ class ConfigList extends PureComponent {
           </Col>
           <Col md={8} sm={24}>
             <span className={styles.submitButtons}>
-              <Authorized authority={['admin']}>
-                <Button type="primary" htmlType="submit">
-                  <FormattedMessage id="table.search" />
-                </Button>
-              </Authorized>
+              <Button type="primary" htmlType="submit">
+                <FormattedMessage id="table.search" />
+              </Button>
             </span>
           </Col>
         </Row>
