@@ -3,6 +3,7 @@ import { queryUser, getUser, addUser, updateUser, deleteUser, queryCurrentUser }
 import { formatMessage, FormattedMessage } from 'umi/locale';
 import { setAuthority, clearAuthority } from '@/utils/authority';
 import { getToken } from '@/utils/token';
+import { ssoLogin } from '@/utils/sso';
 import router from 'umi/router';
 import { reloadAuthorized } from '@/utils/Authorized';
 

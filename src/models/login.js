@@ -84,7 +84,6 @@ export default {
     },
     *logout({ payload = {} }, { call, put }) {
       const token = getToken();
-      console.log(token);
       //reducer同步
       yield put({
         type: 'changeLoginStatus',

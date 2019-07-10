@@ -268,7 +268,6 @@ class MenuResourceForm extends PureComponent {
       },
     };
 
-    console.log(data.interfaces);
     const interfacesFormItem = data.interfaces.map((value, i) => {
       return (
         <FormItem {...(i === 0 ? formItemLayout : formItemLayoutWithOutLabel)} label={i === 0 ? <FormattedMessage id="app.menuResource.interfaces" /> : null}>

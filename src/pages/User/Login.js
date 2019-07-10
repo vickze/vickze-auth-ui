@@ -123,7 +123,6 @@ class LoginPage extends Component {
     } = this.props;
     const { type, autoLogin, loading } = this.state;
 
-    console.log(breadcrumbNameMap);
     const loginContent = <div className={styles.main}>
       <Login
         defaultActiveKey={type}

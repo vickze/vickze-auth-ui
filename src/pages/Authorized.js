@@ -15,9 +15,7 @@ function AuthComponent({ children, location, routerData }) {
       // match prefix
       //const regex = new RegExp(`^${route.path}/?$`);
       const regex = pathToRegexp(`${route.path}(.*)`);
-      console.log(regex);
       if (regex.test(path)) {
-        console.log(regex);
         authorities = route.authority || authorities;
 
         // get children authority recursively

@@ -143,9 +143,6 @@ class SystemForm extends PureComponent {
       },
     };
 
-
-    console.log(true && data.notResourceLogin);
-
     return (
       //
       afterClose ?

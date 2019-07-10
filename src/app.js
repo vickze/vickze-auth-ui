@@ -18,21 +18,21 @@ export function render(oldRender) {
     //source为单点登录地址不渲染页面，只做接受token事件
     if (!urlOriginCompare(source, SSO)) {
       oldRender();
+    } else {
+      if (SSO) {
+        window.addEventListener("message", () => {
+          if (urlOriginCompare(event.origin, SSO)) {
+            setToken(event.data.token)
+            //给父窗口发送消息跳转
+            parent.postMessage(event.data.service, event.origin);
+          }
+        }, false);
+      }
     }
   } else {
     oldRender();
   }
 }
 
-if (SSO) {
-  console.log(SSO);
-  window.addEventListener("message", () => {
-    console.log(event.origin);
-    if (urlOriginCompare(event.origin, SSO)) {
-      setToken(event.data.token)
-      //给父窗口发送消息跳转
-      parent.postMessage(event.data.service, event.origin);
-    }
-  }, false);
-}
+
 

@@ -201,7 +201,6 @@ export const getOrder = val => {
 };
 
 export const getFilterByMap = map => {
-  console.log("in"+map);
   const typeFilter = [];
   for (let [key, value] of map.entries()) {
     const args = {

@@ -5,7 +5,7 @@ export function ssoLogin(href) {
         systemKey: SYSTEM_KEY,
         service: href,
     }
-    console.log(SSO + "?" + stringify(query))
+    //(SSO + "?" + stringify(query))
     window.location.href = SSO + "?" + stringify(query);
 }
 
@@ -16,6 +16,6 @@ export function ssoLogout(href) {
         systemKey: SYSTEM_KEY,
         service: href,
     }
-    console.log(SSO + "?" + stringify(query))
+    //console.log(SSO + "?" + stringify(query))
     window.location.href = SSO + "?" + stringify(query);
 }

@@ -233,8 +233,6 @@ class AssignPermission extends PureComponent {
   };
 
   handleSelect = (record, selected) => {
-    console.log(record);
-    console.log(selected);
     let { menuResources } = this.state;
     if (selected) {
       if (!menuResources.find(m => m.id === record.id)) {
@@ -243,15 +241,12 @@ class AssignPermission extends PureComponent {
     } else {
       menuResources = menuResources.filter(m => m.id !== record.id);
     }
-    console.log(menuResources);
     this.setState({
       menuResources: menuResources,
     });
   };
 
   handleSelectAll = (selected, selectedRows) => {
-    console.log(selected);
-    console.log(selectedRows);
     let { menuResources } = this.state;
     if (selected) {
       selectedRows.forEach(row => {
