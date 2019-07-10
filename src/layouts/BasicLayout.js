@@ -12,6 +12,7 @@ import Context from './MenuContext';
 import SiderMenu from '@/components/SiderMenu';
 import getPageTitle from '@/utils/getPageTitle';
 import styles from './BasicLayout.less';
+import PageLoading from '@/components/PageLoading';
 
 // lazy load SettingDrawer
 const SettingDrawer = React.lazy(() => import('@/components/SettingDrawer'));
@@ -44,20 +45,30 @@ const query = {
 };
 
 class BasicLayout extends React.Component {
-  componentDidMount() {
+
+  state = {
+    loading: true,
+  }
+
+  componentWillMount() {
     const {
       dispatch,
       route: { routes, path, authority },
     } = this.props;
     dispatch({
       type: 'user/fetchCurrent',
-    });
-    dispatch({
-      type: 'setting/getSetting',
-    });
-    dispatch({
-      type: 'menu/getMenuData',
-      payload: { routes, path, authority },
+      callback: () => {
+        dispatch({
+          type: 'setting/getSetting',
+        });
+        dispatch({
+          type: 'menu/getMenuData',
+          payload: { routes, path, authority },
+        });
+        this.setState({
+          loading: false,
+        })
+      }
     });
   }
 
@@ -91,7 +102,6 @@ class BasicLayout extends React.Component {
     // Do not render SettingDrawer in production
     // unless it is deployed in preview.pro.ant.design as demo
     // preview.pro.ant.design only do not use in your production ; preview.pro.ant.design 专用环境变量，请不要在你的项目中使用它。
-    console.log( process.env);
     if (
       process.env.NODE_ENV === 'production' &&
       ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION !== 'site'
@@ -113,6 +123,7 @@ class BasicLayout extends React.Component {
       fixedHeader,
     } = this.props;
 
+    const { loading } = this.state;
     const isTop = PropsLayout === 'topmenu';
     const contentStyle = !fixedHeader ? { paddingTop: 0 } : {};
     const layout = (
@@ -148,18 +159,21 @@ class BasicLayout extends React.Component {
       </Layout>
     );
     return (
-      <React.Fragment>
-        <DocumentTitle title={getPageTitle(pathname, breadcrumbNameMap)}>
-          <ContainerQuery query={query}>
-            {params => (
-              <Context.Provider value={this.getContext()}>
-                <div className={classNames(params)}>{layout}</div>
-              </Context.Provider>
-            )}
-          </ContainerQuery>
-        </DocumentTitle>
-        <Suspense fallback={null}>{this.renderSettingDrawer()}</Suspense>
-      </React.Fragment>
+      loading ?
+        <PageLoading />
+        :
+        <React.Fragment>
+          <DocumentTitle title={getPageTitle(pathname, breadcrumbNameMap)}>
+            <ContainerQuery query={query}>
+              {params => (
+                <Context.Provider value={this.getContext()}>
+                  <div className={classNames(params)}>{layout}</div>
+                </Context.Provider>
+              )}
+            </ContainerQuery>
+          </DocumentTitle>
+          <Suspense fallback={null}>{this.renderSettingDrawer()}</Suspense>
+        </React.Fragment>
     );
   }
 }

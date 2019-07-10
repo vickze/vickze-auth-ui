@@ -212,3 +212,13 @@ export const getFilterByMap = map => {
   }
   return typeFilter;
 };
+
+export const urlOriginCompare = (url1, url2) => {
+  if (!isUrl(url1) || !isUrl(url2)) {
+    return false;
+  }
+  const _url1 = new URL(url1);
+  const _url2 = new URL(url2);
+  
+  return _url1.origin === _url2.origin;
+}

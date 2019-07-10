@@ -1,10 +1,11 @@
-import { routerRedux } from 'dva/router';
 import { stringify } from 'qs';
-import { fakeAccountLogin, getFakeCaptcha, createToken, deleteToken } from '@/services/api';
+import { fakeAccountLogin, getFakeCaptcha, createToken, validateToken, deleteToken } from '@/services/api';
 import { setAuthority, clearAuthority } from '@/utils/authority';
 import { setToken, getToken, clearToken } from '@/utils/token';
+import { ssoLogin, ssoLogout } from '@/utils/sso';
 import { getPageQuery } from '@/utils/utils';
 import { reloadAuthorized } from '@/utils/Authorized';
+import router from 'umi/router';
 
 export default {
   namespace: 'login',
@@ -18,17 +19,14 @@ export default {
       const response = yield call(createToken, payload);
       // Login successfully
       if (response) {
-        // yield put({
-        //   type: 'changeLoginStatus',
-        //   payload: {
-        //     status: true,
-        //     type: 'account',
-        //     ...response,
-        //   },
-        // });
-        setToken(response.token);
-        setAuthority(response.permissions);
-        reloadAuthorized();
+        yield put({
+          type: 'changeLoginStatus',
+          payload: {
+            status: true,
+            //type: 'account',
+            ...response,
+          },
+        });
         const urlParams = new URL(window.location.href);
         const params = getPageQuery();
         let { redirect } = params;
@@ -43,48 +41,100 @@ export default {
             redirect = null;
           }
         }
-        yield put(routerRedux.replace(redirect || '/'));
+        router.push(redirect || '/');
       }
     },
-
     *getCaptcha({ payload }, { call }) {
       yield call(getFakeCaptcha, payload);
     },
-
-    *logout(_, { call, put }) {
+    *validate({ callback }, { call }) {
       const token = getToken();
+      let { redirect } = getPageQuery();
+
+      if (!token) {
+        if (SSO) {
+          ssoLogin(redirect || window.location.origin);
+        }
+        callback();
+        return;
+      }
+      const response = yield call(validateToken);
+      //token有效
+      if (response) {
+        const urlParams = new URL(window.location.href);
+        if (redirect) {
+          const redirectUrlParams = new URL(redirect);
+          if (redirectUrlParams.origin === urlParams.origin) {
+            redirect = redirect.substr(urlParams.origin.length);
+            if (redirect.match(/^\/.*#/)) {
+              redirect = redirect.substr(redirect.indexOf('#') + 1);
+            }
+          } else {
+            redirect = null;
+          }
+        }
+        router.push(redirect || '/');
+      } else {
+        //token无效  
+        if (SSO) {
+          ssoLogin(redirect || window.location.origin);
+        }
+        callback();
+      }
+    },
+    *logout({ payload = {} }, { call, put }) {
+      const token = getToken();
+      console.log(token);
       //reducer同步
       yield put({
         type: 'changeLoginStatus',
         payload: {
-          // status: false,
+          status: false,
           // currentAuthority: 'guest',
         },
       });
-      if (!token) {
-        return;
-      }
-      yield call(deleteToken, token);
 
       const { redirect } = getPageQuery();
+      if (SSO) {
+        if (!payload.expire) {
+          //主动登出
+          ssoLogout(redirect || (window.location.pathname !== '/login' ? window.location.href : window.location.origin));
+        } else {
+          //token失效
+          ssoLogin(redirect || (window.location.pathname !== '/login' ? window.location.href : window.location.origin));
+        }
+        
+        return;
+      }
+
+      //token存在且为主动登出不是失效，调用删除token接口
+      if (token && !payload.expire) {
+        yield call(deleteToken, token);
+      }
+
       // redirect
       if (window.location.pathname !== '/login' && !redirect) {
-        yield put(
-          routerRedux.replace({
-            pathname: '/login',
-            search: stringify({
-              redirect: window.location.href,
-            }),
-          })
-        );
+        router.replace({
+          pathname: '/login',
+          query: {
+            redirect: window.location.href,
+          },
+        })
       }
     },
   },
 
   reducers: {
     changeLoginStatus(state, { payload }) {
-      clearToken();
-      clearAuthority();
+      //登录
+      if (payload.status) {
+        setToken(payload.token);
+        setAuthority(payload.permissions);
+      } else {
+        //登出
+        clearToken();
+        clearAuthority();
+      }
       reloadAuthorized();
       return {
         ...state,

@@ -49,6 +49,7 @@ const errorHandler = error => {
     /* eslint-disable no-underscore-dangle */
     window.g_app._store.dispatch({
       type: 'login/logout',
+      payload: { expire: true }
     });
     return;
   }
@@ -74,7 +75,7 @@ const request = extend({
   errorHandler, // 默认错误处理
   credentials: 'include', // 默认请求是否带上cookie
   headers: {
-    'System-Key': 'vickze-auth',
+    'System-Key': SYSTEM_KEY,
   },
 });
 request.interceptors.request.use((url, options) => {

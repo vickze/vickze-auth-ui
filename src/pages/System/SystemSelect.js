@@ -18,8 +18,10 @@ import {
   Tree,
   Spin
 } from 'antd';
+import debounce from "lodash/debounce";
 
 const Option = Select.Option;
+
 
 @connect(({ system, loading }) => ({
   system,
@@ -27,14 +29,18 @@ const Option = Select.Option;
 }))
 @Form.create()
 class SystemSelect extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.handleSearchSystem = debounce(this.handleFocusSystem, 600);
+  }
+
   state = {
     systemId: '',
     offset: 0,
     limit: 10,
   };
 
-
-  handleSearchSystem = value => {
+  handleFocusSystem = value => {
     const { dispatch, system } = this.props;
     this.setState({
       offset: 0,
@@ -125,7 +131,7 @@ class SystemSelect extends PureComponent {
         loading={loading}
         filterOption={false}
         onSearch={this.handleSearchSystem}
-        onFocus={this.handleSearchSystem}
+        onFocus={this.handleFocusSystem}
         onBlur={this.handleSystemSelectBlur}
         onSelect={this.handleSystemSelect}
         style={{ width: '100%' }}

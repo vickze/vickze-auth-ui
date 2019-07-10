@@ -89,18 +89,42 @@ export default {
         callback(response);
       }
     },
-    *fetchCurrent(_, { call, put }) {
+    *fetchCurrent({ callback }, { call, put }) {
       const token = getToken();
+
       if (!token) {
-        router.push('/login');
+        if (SSO) {
+          ssoLogin(window.location.href);
+        } else {
+          router.replace({
+            pathname: '/login',
+            query: {
+              redirect: window.location.href,
+            },
+          })
+        }
+        return;
       }
       const response = yield call(queryCurrentUser);
+      if (!response.permissions) {
+        if (SSO) {
+          ssoLogin(window.location.href);
+        } else {
+          router.replace({
+            pathname: '/login',
+            query: {
+              redirect: window.location.href,
+            },
+          })
+        }
+      }
       setAuthority(response.permissions);
       reloadAuthorized();
       yield put({
         type: 'saveCurrentUser',
         payload: response,
       });
+      callback(response);
     },
   },
 

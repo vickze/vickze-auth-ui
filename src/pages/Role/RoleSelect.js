@@ -19,9 +19,10 @@ import {
   Spin,
   Tag,
 } from 'antd';
-
+import debounce from "lodash/debounce";
 
 const Option = Select.Option;
+
 
 @connect(({ role, loading }) => ({
   role,
@@ -37,7 +38,8 @@ class RoleSelect extends PureComponent {
 
   constructor(props) {
     super(props);
-
+    this.handleSearch = debounce(this.handleFocus, 600);
+    
     const { value } = this.props;
     this.state = {
       list: (value && value.map(item => { return ({ id: item.id, name: item.name }) })) || [],
@@ -46,7 +48,7 @@ class RoleSelect extends PureComponent {
     }
   }
 
-  handleSearch = value => {
+  handleFocus = value => {
     const { dispatch, role } = this.props;
     this.setState({
       offset: 0,
@@ -150,7 +152,7 @@ class RoleSelect extends PureComponent {
         loading={loading}
         filterOption={false}
         onSearch={this.handleSearch}
-        onFocus={this.handleSearch}
+        onFocus={this.handleFocus}
         onBlur={this.handleSelectBlur}
         onSelect={this.handleSelect}
         onDeselect={this.handleDeselect}
