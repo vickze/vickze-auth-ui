@@ -109,6 +109,7 @@ class MenuForm extends PureComponent {
       loading,
       submitting,
       id,
+      parentId,
       menu: { systemMenuData },
       form: { getFieldDecorator, getFieldValue },
       systemId,
@@ -178,7 +179,7 @@ class MenuForm extends PureComponent {
             </FormItem>
             <FormItem {...formItemLayout} label={<FormattedMessage id="app.menu.parentId" />}>
               {getFieldDecorator('parentId', {
-                initialValue: data.parentId,
+                initialValue: parentId || data.parentId,
               })(
                 <TreeSelect style={{ width: '100%' }}
                   treeData={treeSelectLoop(systemMenuData)}

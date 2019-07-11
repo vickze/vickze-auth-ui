@@ -51,23 +51,25 @@ class MenuTree extends PureComponent {
     searchValue: '',
     autoExpandParent: true,
     selectedId: '',
+    selectedParentId: '',
     duplicate: false,
     formShow: false,
     profileShow: false,
   };
 
 
-  addOrEdit = id => {
-    if (id) {
-      this.setState({
-        selectedId: id,
-        formShow: true,
-      });
-    } else {
-      this.setState({
-        formShow: true,
-      });
-    }
+  add = id => {
+    this.setState({
+      selectedParentId: id || '',
+      formShow: true,
+    });
+  }
+
+  edit = id => {
+    this.setState({
+      selectedId: id || '',
+      formShow: true,
+    });
   }
 
   duplicate = (id) => {
@@ -197,6 +199,7 @@ class MenuTree extends PureComponent {
       expandedKeys,
       autoExpandParent,
       selectedId,
+      selectedParentId,
       duplicate,
       formShow,
       profileShow,
@@ -206,9 +209,9 @@ class MenuTree extends PureComponent {
 
     const getRightClickeMenu = id => (
       <Menu>
-        {Authorized.check(['auth:menu:add'], <Menu.Item key="add" onClick={() => this.addOrEdit()}><FormattedMessage id="table.add" /></Menu.Item>)}
+        {Authorized.check(['auth:menu:add'], <Menu.Item key="add" onClick={() => this.add(id)}><FormattedMessage id="table.add" /></Menu.Item>)}
         {Authorized.check(['auth:menu:profile'], <Menu.Item key="info" onClick={() => this.profile(id)}><FormattedMessage id="table.info" /></Menu.Item>)}
-        {Authorized.check(['auth:menu:edit'], <Menu.Item key="edit" onClick={() => this.addOrEdit(id)}><FormattedMessage id="table.edit" /></Menu.Item>)}
+        {Authorized.check(['auth:menu:edit'], <Menu.Item key="edit" onClick={() => this.edit(id)}><FormattedMessage id="table.edit" /></Menu.Item>)}
         {Authorized.check(['auth:menu:duplicate'], <Menu.Item key="duplicate" onClick={() => this.duplicate(id)}><FormattedMessage id="table.duplicate" /></Menu.Item>)}
         {Authorized.check(['auth:menu:delete'], <Menu.Item key="delete" onClick={() => this.delete(id)}><FormattedMessage id="table.delete" /></Menu.Item>)}
       </Menu>
@@ -282,12 +285,13 @@ class MenuTree extends PureComponent {
             </div>
             : selectedSystemId && updatable ?
               (<Authorized authority={['auth:menu:add']}>
-                <div style={{ marginTop: 8, marginLeft: 5 }}><a onClick={() => this.addOrEdit()}><FormattedMessage id="table.add" /></a></div>
+                <div style={{ marginTop: 8, marginLeft: 5 }}><a onClick={() => this.add()}><FormattedMessage id="table.add" /></a></div>
               </Authorized>)
               : null}
         {
           formShow ? <MenuForm
             id={selectedId}
+            parentId={selectedParentId}
             systemId={selectedSystemId}
             duplicate={duplicate}
             afterClose={this.afterFormClose}
