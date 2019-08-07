@@ -43,6 +43,7 @@ export default [
                 component: './System/SystemForm',
                 authority: ['auth:system:edit'],
                 hideInMenu: true,
+                inherited: true,  // 面包屑隐藏，否则面包屑显示 首页/XX/XX/XX
               },
               {
                 path: '/system/system-form/:duplicate/:id',
@@ -50,6 +51,7 @@ export default [
                 component: './System/SystemForm',
                 authority: ['auth:system:duplicate'],
                 hideInMenu: true,
+                inherited: true,  // 面包屑隐藏，否则面包屑显示 首页/XX/XX/XX
               },
               {
                 path: '/system/system-profile/:id',
@@ -85,6 +87,7 @@ export default [
                 component: './Menu/MenuForm',
                 authority: ['auth:menu:edit'],
                 hideInMenu: true,
+                inherited: true,  // 面包屑隐藏，否则面包屑显示 首页/XX/XX/XX
               },
               {
                 path: '/menu/menu-form/:duplicate/:id',
@@ -92,6 +95,7 @@ export default [
                 component: './Menu/MenuForm',
                 authority: ['auth:menu:duplicate'],
                 hideInMenu: true,
+                inherited: true,  // 面包屑隐藏，否则面包屑显示 首页/XX/XX/XX
               },
               {
                 path: '/menu/menu-profile/:id',
@@ -127,6 +131,7 @@ export default [
                 component: './MenuResource/MenuResourceForm',
                 authority: ['auth:menuResource:edit'],
                 hideInMenu: true,
+                inherited: true,  // 面包屑隐藏，否则面包屑显示 首页/XX/XX/XX
               },
               {
                 path: '/menuResource/menuResource-form/:duplicate/:id',
@@ -134,6 +139,7 @@ export default [
                 component: './MenuResource/MenuResourceForm',
                 authority: ['auth:menuResource:duplicate'],
                 hideInMenu: true,
+                inherited: true,  // 面包屑隐藏，否则面包屑显示 首页/XX/XX/XX
               },
               {
                 path: '/menuResource/menuResource-profile/:id',
@@ -169,6 +175,7 @@ export default [
                 component: './Role/RoleForm',
                 authority: ['auth:role:edit'],
                 hideInMenu: true,
+                inherited: true,  // 面包屑隐藏，否则面包屑显示 首页/XX/XX/XX
               },
               {
                 path: '/role/role-form/:duplicate/:id',
@@ -176,6 +183,7 @@ export default [
                 component: './Role/RoleForm',
                 authority: ['auth:role:duplicate'],
                 hideInMenu: true,
+                inherited: true,  // 面包屑隐藏，否则面包屑显示 首页/XX/XX/XX
               },
               {
                 path: '/role/role-profile/:id',
@@ -218,6 +226,7 @@ export default [
                 component: './User/UserForm',
                 authority: ['auth:user:edit'],
                 hideInMenu: true,
+                inherited: true,  // 面包屑隐藏，否则面包屑显示 首页/XX/XX/XX
               },
               {
                 path: '/user/user-form/:duplicate/:id',
@@ -225,6 +234,7 @@ export default [
                 component: './User/UserForm',
                 authority: ['auth:user:duplicate'],
                 hideInMenu: true,
+                inherited: true,  // 面包屑隐藏，否则面包屑显示 首页/XX/XX/XX
               },
               {
                 path: '/user/user-profile/:id',
