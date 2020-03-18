@@ -12,12 +12,14 @@ node环境 yarn 或者 npm
 ```
 yarn install #安装
 yarn start #启动
+yarn sso-start #启动单点，单点前端默认为http://localhost:8001/，可在package.json里修改
 ```
 或者
 
 ```
 npm install #安装
 npm start #启动
+npm run sso-start #启动单点，单点前端默认为http://localhost:8001/，可在package.json里修改
 ```
 
 下载慢可以使用国内镜像，如淘宝
